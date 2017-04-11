@@ -1,0 +1,46 @@
+{
+  "inputs": [
+	{
+		"type": "ETW",
+		"providers": [
+			// Service Fabric Operational and CustomerInfo Traces
+			{
+				"providerName": "Microsoft-ServiceFabric",
+				"level": "Informational",
+				"keywords": "4611686018427387912"
+			},
+			
+			// Container ETW Log Driver
+			{
+				"providerGuid": "a3693192-9ed6-46d2-a981-f8226c8363bd",
+				"level": "Informational"
+			}
+		]
+	}
+  ],
+  "filters": [
+    {
+      "type":  "drop",
+      "include": "Level == Verbose || ProviderName == System.Threading.Tasks.TplEventSource"
+    }
+  ],
+  "outputs": [
+    // Please update the instrumentationKey.
+    {
+      "type": "ApplicationInsights",
+      "instrumentationKey": "3a376325-066d-408c-8ce7-7fb599fc719d"
+    },
+	  {
+		  "type":  "StdOutput"
+	  }
+  ],
+  "schemaVersion": "2016-08-11",
+  // "settings": {
+  //    "pipelineBufferSize": "1000",
+  //    "maxEventBatchSize": "100",
+  //    "maxBatchDelayMsec": "500",
+  //    "maxConcurrency": "8",
+  //    "pipelineCompletionTimeoutMsec": "30000"
+  // },
+  "extensions": []
+}
